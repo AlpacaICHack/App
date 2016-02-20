@@ -2,6 +2,7 @@ package com.alpaca.app;
 
 import android.content.Context;
 
+import com.alpaca.app.apiinterface.GetCurrentSong;
 import com.alpaca.app.apiinterface.GetEvent;
 import com.alpaca.app.apiinterface.GetEvents;
 import com.alpaca.app.apiinterface.GetPool;
@@ -25,5 +26,9 @@ public class APICall{
 
     public void getPool(int id){
         new GetPool(id, context);
+    }
+
+    public void getSong(int eventId){
+        new GetCurrentSong(eventId, context);
     }
 }

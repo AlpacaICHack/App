@@ -3,17 +3,18 @@ package com.alpaca.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 
 import com.alpaca.app.apiinterface.ServerListener;
+import com.alpaca.app.constants.Intents;
+import com.alpaca.app.services.Accelerometer;
+import com.alpaca.app.services.ScreenLock;
 import com.andtinder.model.CardModel;
 import com.andtinder.model.Orientations;
 import com.andtinder.view.CardContainer;
 import com.andtinder.view.SimpleCardStackAdapter;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -24,26 +25,30 @@ public class Main extends Activity implements ServerListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         Intent extras = getIntent();
         int eventID;
-        String eventName = null;
 
         if (extras != null) {
             eventID = extras.getIntExtra("id", -1);
-            eventName = extras.getStringExtra("eventName");
+
+            if (eventID == -1) {
+                throw new InvalidParameterException("Wrong event ID");
+            }
+
+            Intent intent = new Intent(Intents.EVENTID);
+            intent.putExtra(Intents.EVENTID, eventID);
+            sendBroadcast(intent);
         } else {
             throw new InvalidParameterException("Missing event data.");
         }
 
-        if (eventName != null) {
-            getActionBar().setTitle(eventName);
-        } else {
-            throw new InvalidParameterException("Event name missing.");
-        }
-
         new APICall(this).getEvent(eventID);
+
+        startService(new Intent(this, ScreenLock.class));
+        startService(new Intent(this, Accelerometer.class));
     }
 
     @Override
@@ -68,13 +73,16 @@ public class Main extends Activity implements ServerListener {
         cardContainer.setAdapter(adapter);
     }
 
+    @Override
+    public void gotSong(SongInformation song) {
+    }
+
     private CardModel createCard(SongInformation song) {
         String title = song.getSongName();
         String description = song.getArtistName();
-        Bitmap image = ImageLoader.getInstance().loadImageSync(song.getAlbumArtURL());
-        Drawable drawable = new BitmapDrawable(image);
+        Bitmap image = null;
 
-        CardModel card = new CardModel(title, description, drawable);
+        CardModel card = new CardModel(title, description, getResources().getDrawable(R.drawable.picture1));
 
         card.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
             @Override

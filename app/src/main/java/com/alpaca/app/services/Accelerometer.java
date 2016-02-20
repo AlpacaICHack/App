@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 
+import com.alpaca.app.apiinterface.SendMovement;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -104,7 +106,8 @@ public class Accelerometer extends Service implements SensorEventListener {
                 lastUpdateTime = Calendar.getInstance().getTimeInMillis();
             }
 
-            //ToDo: Value to submit send to server
+            SendMovement movement = new SendMovement(Math.round(valueToSubmit));
+            movement.submit();
         }
     }
 

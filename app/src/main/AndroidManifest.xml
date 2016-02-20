@@ -30,6 +30,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.media.VOLUME_CHANGED_ACTION"/>
+                <action android:name="EVENT_ID"/>
             </intent-filter>
         </receiver>
 

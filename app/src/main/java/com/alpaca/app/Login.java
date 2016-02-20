@@ -27,8 +27,6 @@ public class Login extends ActionBarActivity implements ServerListener{
                 = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(configuration);
         new APICall(this).getEvents();
-
-        
     }
 
     @Override
@@ -56,4 +54,9 @@ public class Login extends ActionBarActivity implements ServerListener{
 
     @Override
     public void gotPool(List<SongInformation> songs) {}
+
+    @Override
+    public void gotSong(SongInformation song) {
+
+    }
 }

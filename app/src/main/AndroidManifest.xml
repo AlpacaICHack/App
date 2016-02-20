@@ -2,8 +2,8 @@
 <manifest package="com.alpaca.app"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -24,22 +24,24 @@
         <receiver
             android:name=".receivers.MediaButton"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.media.VOLUME_CHANGED_ACTION" />
+                <action android:name="android.media.VOLUME_CHANGED_ACTION"/>
             </intent-filter>
         </receiver>
 
         <service
             android:name=".services.ScreenLock"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
         </service>
-
         <service
             android:name=".services.Accelerometer"
             android:enabled="true">
         </service>
+
+        <activity android:name=".Main">
+        </activity>
     </application>
 
 </manifest>

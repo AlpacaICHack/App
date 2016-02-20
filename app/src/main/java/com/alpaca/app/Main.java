@@ -58,6 +58,8 @@ public class Main extends Activity implements ServerListener {
     public void onDestroy(){
         super.onDestroy();
 
+        stopService(new Intent(Main.this, Accelerometer.class));
+        stopService(new Intent(Main.this, ScreenLock.class));
     }
 
     @Override

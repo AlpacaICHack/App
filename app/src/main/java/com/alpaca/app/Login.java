@@ -57,4 +57,9 @@ public class Login extends ActionBarActivity implements ServerListener{
 
         startService(new Intent(this, Accelerometer.class));
     }
+
+    @Override
+    public void gotEvent(Event event) {
+
+    }
 }

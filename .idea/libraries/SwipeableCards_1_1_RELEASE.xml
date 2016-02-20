@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="SwipeableCards-1.1-RELEASE">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.kikoso/SwipeableCards/1.1-RELEASE/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.kikoso/SwipeableCards/1.1-RELEASE/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

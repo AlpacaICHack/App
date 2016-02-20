@@ -25,14 +25,14 @@ import java.util.List;
 public class Accelerometer extends Service implements SensorEventListener {
     public static final String TAG = Accelerometer.class.getName();
     public static final int SCREEN_OFF_RECEIVER_DELAY = 500;
-
-    private SensorManager sensorManager = null;
-    private PowerManager.WakeLock wakeLock = null;
+    public static final Calendar calendar = Calendar.getInstance();
 
     private float previousMax = Float.MIN_VALUE;
     private int eventID = -1;
     private double lastUpdateTime = 0;
     private List<Float> localMaximums;
+    private SensorManager sensorManager = null;
+    private PowerManager.WakeLock wakeLock = null;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -149,6 +149,6 @@ public class Accelerometer extends Service implements SensorEventListener {
     }
 
     private double timeFromLastUpdate() {
-        return Calendar.getInstance().getTimeInMillis() - lastUpdateTime;
+        return calendar.getTimeInMillis() - lastUpdateTime;
     }
 }

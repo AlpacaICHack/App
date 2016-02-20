@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Main extends Activity implements ServerListener {
     private CardContainer cardContainer;
+    private ScreenLock screenLock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,8 @@ public class Main extends Activity implements ServerListener {
 
         new APICall(this).getEvent(eventID);
 
-        startService(new Intent(this, ScreenLock.class));
+        screenLock = new ScreenLock();
+        screenLock.manageService(this);
 
         Intent intent = new Intent(this, Accelerometer.class);
         intent.putExtra(Intents.EVENTID, eventID);
@@ -57,9 +59,8 @@ public class Main extends Activity implements ServerListener {
     @Override
     public void onDestroy(){
         super.onDestroy();
-
+        screenLock.stopService();
         stopService(new Intent(Main.this, Accelerometer.class));
-        stopService(new Intent(Main.this, ScreenLock.class));
     }
 
     @Override

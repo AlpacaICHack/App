@@ -16,83 +16,88 @@ import com.alpaca.app.R;
 
 
 public class ScreenLock extends Service {
-  private static final String TAG = ScreenLock.class.getSimpleName();
+    private static final String TAG = ScreenLock.class.getSimpleName();
 
-  private static ScreenLock screenLockService;
-  private MediaPlayer mediaPlayer;
+    private static ScreenLock screenLockService;
+    private MediaPlayer mediaPlayer;
 
-  public ScreenLock() {
-    screenLockService = this;
-  }
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-  }
-
-  @Override
-  public int onStartCommand(Intent intent, int flags, int startId) {
-    if (mediaPlayer == null) {
-      mediaPlayer = MediaPlayer.create(this, R.raw.sound);
-      mediaPlayer.setVolume(0, 0);
-      mediaPlayer.setLooping(true);
-      mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+    public ScreenLock() {
+        screenLockService = this;
     }
 
-    if (!mediaPlayer.isPlaying()) {
-      mediaPlayer.start();
+    @Override
+    public void onCreate() {
+        super.onCreate();
     }
 
-    return super.onStartCommand(intent, flags, startId);
-  }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+            mediaPlayer.setVolume(0, 0);
+            mediaPlayer.setLooping(true);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        }
 
-  @Override
-  public IBinder onBind(Intent intent) {
-    throw new UnsupportedOperationException("Not yet implemented");
-  }
+        if (!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+        }
 
-  @Override
-  public void onDestroy() {
-    stopMediaPlay();
-    super.onDestroy();
-  }
-
-  private void stopMediaPlay() {
-    if (mediaPlayer != null) {
-      mediaPlayer.stop();
+        return super.onStartCommand(intent, flags, startId);
     }
-  }
 
-  public static void manageService(Context context) {
-      Intent intent = new Intent(context, ScreenLock.class);
-      context.startService(intent);
-      Log.i(TAG, "Service started");
-  }
-
-  public static void stopService() {
-    if (screenLockService != null) {
-      Log.i(TAG, "Service Destroyed");
-      screenLockService.stopSelf();
+    @Override
+    public IBinder onBind(Intent intent) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
-  }
 
-  @Override
-  public void onTaskRemoved(Intent rootIntent) {
-    Log.i(TAG, ServiceInfo.FLAG_STOP_WITH_TASK + "");
-    Intent restartServiceIntent = new Intent(getApplicationContext(), this.getClass());
-    restartServiceIntent.setPackage(getPackageName());
+    @Override
+    public void onDestroy() {
+        stopMediaPlay();
+        super.onDestroy();
+    }
 
-    PendingIntent restartServicePendingIntent = PendingIntent.getService(
-            getApplicationContext(), 1, restartServiceIntent,
-            PendingIntent.FLAG_ONE_SHOT);
+    private void stopMediaPlay() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+    }
 
-    AlarmManager alarmService = (AlarmManager) getApplicationContext()
-        .getSystemService(Context.ALARM_SERVICE);
+    public static void manageService(Context context) {
+        Intent intent = new Intent(context, ScreenLock.class);
+        context.startService(intent);
+        Log.i(TAG, "Service started");
+    }
 
-    alarmService.set(AlarmManager.ELAPSED_REALTIME,
-        SystemClock.elapsedRealtime() + 1000,
-        restartServicePendingIntent);
+    public static void stopService() {
+        if (screenLockService != null) {
+            Log.i(TAG, "Service Destroyed");
+            screenLockService.stopSelf();
+            screenLockService = null;
+        }
+    }
 
-    super.onTaskRemoved(rootIntent);
-  }
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        if (screenLockService == null) {
+            return;
+        }
+
+        Log.i(TAG, ServiceInfo.FLAG_STOP_WITH_TASK + "");
+        Intent restartServiceIntent = new Intent(getApplicationContext(), this.getClass());
+        restartServiceIntent.setPackage(getPackageName());
+
+        PendingIntent restartServicePendingIntent = PendingIntent.getService(
+                getApplicationContext(), 1, restartServiceIntent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        AlarmManager alarmService = (AlarmManager) getApplicationContext()
+                .getSystemService(Context.ALARM_SERVICE);
+
+        alarmService.set(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + 1000,
+                restartServicePendingIntent);
+
+        super.onTaskRemoved(rootIntent);
+    }
 }

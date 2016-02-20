@@ -1,10 +1,12 @@
 package com.alpaca.app;
 
 public class SongInformation {
+    private int id;
     private String songName;
     private String artistName;
 
-    public SongInformation(String songName, String artistName) {
+    public SongInformation(int id, String songName, String artistName) {
+        this.id = id;
         this.songName = songName;
         this.artistName = artistName;
     }
@@ -23,5 +25,13 @@ public class SongInformation {
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

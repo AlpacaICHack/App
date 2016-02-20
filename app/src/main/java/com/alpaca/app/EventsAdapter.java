@@ -46,12 +46,14 @@ public class EventsAdapter extends BaseAdapter{
         //Assign widgets to variables
         TextView name = (TextView) v.findViewById(R.id.name);
         TextView description = (TextView) v.findViewById(R.id.description);
+        TextView date = (TextView) v.findViewById(R.id.date);
 
         Event event = events.get(i);
 
         //Draw information
         name.setText(event.getEventName());
         description.setText(event.getEventDescription());
+        date.setText(event.getEventDate());
         return v;
     }
 }

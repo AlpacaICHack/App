@@ -4,11 +4,16 @@ public class SongInformation {
     private int id;
     private String songName;
     private String artistName;
+    private String albumArtURL;
+    private boolean isRequest;
 
-    public SongInformation(int id, String songName, String artistName) {
+    public SongInformation(int id, String songName, String artistName,
+                           String albumArtURL, boolean isRequest) {
         this.id = id;
         this.songName = songName;
         this.artistName = artistName;
+        this.albumArtURL = albumArtURL;
+        this.isRequest = isRequest;
     }
 
     public String getSongName() {
@@ -33,5 +38,21 @@ public class SongInformation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getAlbumArtURL() {
+        return albumArtURL;
+    }
+
+    public void setAlbumArtURL(String albumArtURL) {
+        this.albumArtURL = albumArtURL;
+    }
+
+    public boolean isRequest() {
+        return isRequest;
+    }
+
+    public void setIsRequest(boolean isRequest) {
+        this.isRequest = isRequest;
     }
 }

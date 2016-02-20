@@ -6,7 +6,7 @@ public class Event {
     private int eventId;
     private String eventName;
     private String eventDescription;
-    private Date eventDate;
+    private String eventDate;
     private String pictureURL;
 
     public Event(int eventId, String eventName) {
@@ -15,7 +15,7 @@ public class Event {
     }
 
     public Event(int eventId, String eventName, String eventDescription,
-                 Date eventDate, String pictureURL) {
+                 String eventDate, String pictureURL) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
@@ -43,11 +43,11 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public Date getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 

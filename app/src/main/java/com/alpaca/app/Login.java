@@ -1,18 +1,15 @@
 package com.alpaca.app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Pair;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.alpaca.app.apiinterface.GetEvents;
 import com.alpaca.app.apiinterface.ServerListener;
-
 import com.alpaca.app.services.Accelerometer;
 
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ public class Login extends ActionBarActivity implements ServerListener{
     }
 
     @Override
-    public void gotEvents(List<Event> events) {
+    public void gotEvents(final List<Event> events) {
         List<String> values = new ArrayList<String>();
 
         for (Event event : events) {

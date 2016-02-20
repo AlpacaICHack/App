@@ -13,7 +13,6 @@ import com.alpaca.app.services.Accelerometer;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends ActionBarActivity implements ServerListener{
@@ -53,7 +52,8 @@ public class Login extends ActionBarActivity implements ServerListener{
     }
 
     @Override
-    public void gotEvent(Event event) {
+    public void gotEvent(Event event) {}
 
-    }
+    @Override
+    public void gotPool(List<SongInformation> songs) {}
 }

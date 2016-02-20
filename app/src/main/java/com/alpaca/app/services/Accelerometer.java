@@ -9,10 +9,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 
+import com.alpaca.app.apiinterface.SendMovement;
+import com.alpaca.app.constants.Intents;
+
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -26,12 +31,20 @@ public class Accelerometer extends Service implements SensorEventListener {
     private PowerManager.WakeLock wakeLock = null;
 
     private float previousMax = Float.MIN_VALUE;
+    private int eventID = -1;
     private double lastUpdateTime = 0;
     private List<Float> localMaximums;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+        Bundle extras = intent.getExtras();
+
+        if (extras != null) {
+            eventID = extras.getInt(Intents.EVENTID, -1);
+        } else {
+            throw new InvalidParameterException("Event ID required.");
+        }
 
         registerListener();
         wakeLock.acquire();
@@ -104,8 +117,10 @@ public class Accelerometer extends Service implements SensorEventListener {
                 lastUpdateTime = Calendar.getInstance().getTimeInMillis();
             }
 
-            //SendMovement movement = new SendMovement(Math.round(valueToSubmit));
-            //movement.submit();
+            if (eventID != -1) {
+                SendMovement movement = new SendMovement(Math.round(valueToSubmit), eventID);
+                movement.submit();
+            }
         }
     }
 

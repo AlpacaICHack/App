@@ -11,9 +11,11 @@ import java.io.IOException;
 
 public class SendMovement {
     private int movementValue;
+    private int eventID;
 
-    public SendMovement(int value){
-        movementValue = value;
+    public SendMovement(int movementValue, int eventID){
+        this.movementValue = movementValue;
+        this.eventID = eventID;
     }
 
     // Returns true if the vote was made successfully
@@ -21,8 +23,9 @@ public class SendMovement {
     public boolean submit(){
         HttpClient httpClient = new DefaultHttpClient();
         HttpContext localContext = new BasicHttpContext();
-        String baseString = "http://alpaca.stenbom.eu/api/movement/?value=";
-        String requestString = baseString + movementValue;
+        String baseString = "http://alpaca.stenbom.eu/api/movement?event=";
+        String requestString = baseString + eventID;
+        requestString += "&value=" + movementValue;
         HttpGet httpGet = new HttpGet(requestString);
         try {
             httpClient.execute(httpGet, localContext);

@@ -1,6 +1,7 @@
 package com.alpaca.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -8,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.alpaca.app.services.Accelerometer;
 
 public class Login extends Activity {
     ListView listView ;
@@ -40,8 +43,8 @@ public class Login extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemPosition     = position;
-                String  itemValue    = (String) listView.getItemAtPosition(position);
+                int itemPosition = position;
+                String itemValue = (String) listView.getItemAtPosition(position);
 
                 Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
@@ -50,5 +53,7 @@ public class Login extends Activity {
             }
 
         });
+
+        startService(new Intent(this, Accelerometer.class));
     }
 }

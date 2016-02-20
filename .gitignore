@@ -1,0 +1,16 @@
+.gradle/2.8/taskArtifacts/cache.properties
+.gradle/2.8/taskArtifacts/cache.properties.lock
+.gradle/2.8/taskArtifacts/fileHashes.bin
+.gradle/2.8/taskArtifacts/fileSnapshots.bin
+.gradle/2.8/taskArtifacts/outputFileStates.bin
+.gradle/2.8/taskArtifacts/taskArtifacts.bin
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+build/intermediates/dex-cache/cache.xml
+local.properties

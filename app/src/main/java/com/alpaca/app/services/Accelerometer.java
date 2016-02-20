@@ -104,7 +104,8 @@ public class Accelerometer extends Service implements SensorEventListener {
                 lastUpdateTime = Calendar.getInstance().getTimeInMillis();
             }
 
-            //ToDo: Value to submit send to server
+            //SendMovement movement = new SendMovement(Math.round(valueToSubmit));
+            //movement.submit();
         }
     }
 

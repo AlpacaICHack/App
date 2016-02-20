@@ -27,8 +27,6 @@ public class Login extends ActionBarActivity implements ServerListener{
                 = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(configuration);
         new APICall(this).getEvents();
-
-        
     }
 
     @Override

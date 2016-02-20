@@ -5,12 +5,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Login extends ActionBarActivity {
+import com.alpaca.app.apiinterface.GetEvents;
+import com.alpaca.app.apiinterface.ServerListener;
+
+import java.util.List;
+
+public class Login extends ActionBarActivity implements ServerListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        new APICall(this).getEvents();
     }
 
     @Override
@@ -33,5 +39,10 @@ public class Login extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void gotEvents(List<Event> events) {
+        System.out.println("Fuckin worked");
     }
 }

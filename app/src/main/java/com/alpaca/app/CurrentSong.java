@@ -1,6 +1,7 @@
 package com.alpaca.app;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,16 @@ public class CurrentSong extends Fragment implements ServerListener{
         upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
         downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
 
-        //new APICall(this).getSong();
+        Intent intent = getActivity().getIntent();
+        int eventId = intent.getIntExtra("id", -1);
+        if (eventId == -1) {
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        new APICall(this).getSong(eventId);
 
 
         return view;

@@ -7,6 +7,7 @@ import com.alpaca.app.apiinterface.GetEvent;
 import com.alpaca.app.apiinterface.GetEvents;
 import com.alpaca.app.apiinterface.GetPool;
 import com.alpaca.app.apiinterface.ServerListener;
+import com.alpaca.app.apiinterface.VoteCurrentSong;
 
 
 public class APICall{
@@ -30,5 +31,9 @@ public class APICall{
 
     public void getSong(int eventId){
         new GetCurrentSong(eventId, context);
+    }
+
+    public void voteCurrentSong(int eventId, boolean isUp){
+        new VoteCurrentSong(eventId, isUp, (Context) context);
     }
 }

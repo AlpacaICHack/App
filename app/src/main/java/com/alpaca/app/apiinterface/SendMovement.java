@@ -19,9 +19,11 @@ public class SendMovement {
     }
 
     public void submit(){
-        String baseString = "http://alpaca.stenbom.eu/api/movement?event=";
-        String requestString = baseString + eventID;
-        requestString += "&value=" + movementValue;
-        new AsyncGetRequest().execute(requestString);
+        if (movementValue != 0) {
+            String baseString = "http://alpaca.stenbom.eu/api/movement?event=";
+            String requestString = baseString + eventID;
+            requestString += "&value=" + movementValue;
+            new AsyncGetRequest().execute(requestString);
+        }
     }
 }

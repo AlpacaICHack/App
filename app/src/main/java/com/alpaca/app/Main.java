@@ -48,7 +48,16 @@ public class Main extends Activity implements ServerListener {
         new APICall(this).getEvent(eventID);
 
         startService(new Intent(this, ScreenLock.class));
-        startService(new Intent(this, Accelerometer.class));
+
+        Intent intent = new Intent(this, Accelerometer.class);
+        intent.putExtra(Intents.EVENTID, eventID);
+        startService(intent);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
     }
 
     @Override

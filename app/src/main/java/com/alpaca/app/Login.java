@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.alpaca.app.apiinterface.ServerListener;
-import com.alpaca.app.services.Accelerometer;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -45,8 +44,6 @@ public class Login extends ActionBarActivity implements ServerListener{
             }
 
         });
-
-        startService(new Intent(this, Accelerometer.class));
     }
 
     @Override

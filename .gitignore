@@ -4,13 +4,7 @@
 .gradle/2.8/taskArtifacts/fileSnapshots.bin
 .gradle/2.8/taskArtifacts/outputFileStates.bin
 .gradle/2.8/taskArtifacts/taskArtifacts.bin
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/gradle.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/workspace.xml
+.idea/*
+.gitignore
 build/intermediates/dex-cache/cache.xml
 local.properties

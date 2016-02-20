@@ -11,29 +11,17 @@ import java.io.IOException;
 
 public class SendMovement {
     private int movementValue;
+    private int eventID;
 
-    public SendMovement(int value){
-        movementValue = value;
+    public SendMovement(int movementValue, int eventID){
+        this.movementValue = movementValue;
+        this.eventID = eventID;
     }
 
-    // Returns true if the vote was made successfully
-    // Returns false if the vote was unsuccessful
-    public boolean submit(){
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpContext localContext = new BasicHttpContext();
-        String baseString = "http://alpaca.stenbom.eu/api/movement/?value=";
-        String requestString = baseString + movementValue;
-        HttpGet httpGet = new HttpGet(requestString);
-        try {
-            httpClient.execute(httpGet, localContext);
-            return true;
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-
+    public void submit(){
+        String baseString = "http://alpaca.stenbom.eu/api/movement?event=";
+        String requestString = baseString + eventID;
+        requestString += "&value=" + movementValue;
+        new AsyncGetRequest().execute(requestString);
     }
 }

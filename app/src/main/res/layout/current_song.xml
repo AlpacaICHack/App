@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/downVote"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="#ff0000"
+            android:longClickable="true"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/upVote"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#00ff00"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/downVote"
+            android:id="@+id/relativeLayout"
+            android:layout_toRightOf="@+id/downVote"
+            android:layout_toLeftOf="@+id/albumArt"
+            android:layout_toStartOf="@+id/albumArt"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="0dp"
+            android:layout_above="@+id/trackArtist">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Track Title"
+                android:id="@+id/trackTitle"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Track Artist"
+                android:id="@+id/trackArtist"
+                android:layout_below="@+id/trackTitle"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/albumArt"
+            android:layout_alignTop="@+id/relativeLayout"
+            android:layout_toLeftOf="@+id/upVote"
+            android:layout_toStartOf="@+id/upVote"
+            android:layout_marginRight="5dp"
+            android:background="#5224a8" />
+    </RelativeLayout>
+</LinearLayout>

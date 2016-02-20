@@ -56,4 +56,9 @@ public class Login extends ActionBarActivity implements ServerListener{
 
     @Override
     public void gotPool(List<SongInformation> songs) {}
+
+    @Override
+    public void gotSong(SongInformation song) {
+
+    }
 }

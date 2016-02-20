@@ -10,38 +10,33 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alpaca.app.apiinterface.ServerListener;
+
+import java.util.List;
+
 /**
  * Created by mauriceyap on 20/02/16.
  */
-public class CurrentSong extends Fragment{
+public class CurrentSong extends Fragment implements ServerListener{
+
+    private TextView trackTitle;
+    private TextView artistName;
+    private ImageView albumArtView;
+    private ImageButton upVoteButton;
+    private ImageButton downVoteButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view =  inflater.inflate(R.layout.current_song, container, false);
-        TextView trackTitle = (TextView) view.findViewById(R.id.trackTitle);
-        TextView artistName = (TextView) view.findViewById(R.id.trackArtist);
-        ImageView albumArtView = (ImageView) view.findViewById(R.id.albumArt);
-        ImageButton upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
-        ImageButton downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
+        trackTitle = (TextView) view.findViewById(R.id.trackTitle);
+        artistName = (TextView) view.findViewById(R.id.trackArtist);
+        albumArtView = (ImageView) view.findViewById(R.id.albumArt);
+        upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
+        downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
 
-        trackTitle.setText("Shofukan");
-        artistName.setText("Snarky Puppy");
-        albumArtView.setImage
+        //new APICall(this).getSong();
 
-        upVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackUp();
-            }
-        });
-
-        downVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackDown();
-            }
-        });
 
         return view;
 
@@ -75,4 +70,42 @@ public class CurrentSong extends Fragment{
         super.onResume();
     }
 
+
+    @Override
+    public void gotEvents(List<Event> events) {
+
+    }
+
+    @Override
+    public void gotEvent(Event event) {
+
+    }
+
+    @Override
+    public void gotPool(List<SongInformation> songs) {
+
+    }
+
+    @Override
+    public void gotSong(SongInformation song) {
+
+        trackTitle.setText(song.getSongName());
+        artistName.setText(song.getArtistName());
+        // TODO: albumArtView.setImage
+
+        upVoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currTrackUp();
+            }
+        });
+
+        downVoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currTrackDown();
+            }
+        });
+
+    }
 }

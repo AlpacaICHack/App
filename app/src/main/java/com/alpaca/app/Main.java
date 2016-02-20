@@ -68,6 +68,11 @@ public class Main extends Activity implements ServerListener {
         cardContainer.setAdapter(adapter);
     }
 
+    @Override
+    public void gotSong(SongInformation song) {
+
+    }
+
     private CardModel createCard(SongInformation song) {
         String title = song.getSongName();
         String description = song.getArtistName();

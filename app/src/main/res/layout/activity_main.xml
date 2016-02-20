@@ -10,26 +10,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.alpaca.app.Login">
 
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="com.alpaca.app.TinderSong"
-        android:id="@+id/fragment"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/fragment2"/>
-
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="layout.CurrentSong"
-        android:id="@+id/fragment2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
 </RelativeLayout>

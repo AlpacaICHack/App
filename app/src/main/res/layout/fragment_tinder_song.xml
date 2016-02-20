@@ -4,22 +4,9 @@
     android:layout_height="match_parent"
     tools:context="com.alpaca.app.TinderSong">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listSongsToVote"
-        android:autoText="true" />
-
     <ListView
-        android:clickable="true"
-
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:theme="@style/TextAppearance.AppCompat.Base.SearchResult"
-        android:background="#bf0000"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tinderSongList"
+        android:layout_gravity="left|top"/>
 </FrameLayout>

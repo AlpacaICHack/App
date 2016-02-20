@@ -73,4 +73,7 @@ public class Main extends Activity implements ServerListener {
         adapter.add(card);
         mCardContainer.setAdapter(adapter);
     }
+
+    @Override
+    public void gotPool(List<SongInformation> songs) {}
 }

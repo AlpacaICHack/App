@@ -1,4 +1,4 @@
-package com.alpaca.app.apiinterface;
+package com.alpaca.app;
 
 public class Event {
     private int eventId;

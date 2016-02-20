@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.alpaca.app.apiinterface.GetEvent;
 import com.alpaca.app.apiinterface.GetEvents;
+import com.alpaca.app.apiinterface.GetPool;
 import com.alpaca.app.apiinterface.ServerListener;
 
 
@@ -20,5 +21,9 @@ public class APICall{
 
     public void getEvent(int id){
         new GetEvent(id, context);
+    }
+
+    public void getPool(int id){
+        new GetPool(id, context);
     }
 }

@@ -9,4 +9,5 @@ public interface ServerListener {
     void gotEvents(List<Event> events);
     void gotEvent(Event event);
     void gotPool(List<SongInformation> songs);
+    void gotSong(SongInformation song);
 }

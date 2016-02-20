@@ -18,25 +18,10 @@ public class SendMovement {
         this.eventID = eventID;
     }
 
-    // Returns true if the vote was made successfully
-    // Returns false if the vote was unsuccessful
-    public boolean submit(){
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpContext localContext = new BasicHttpContext();
+    public void submit(){
         String baseString = "http://alpaca.stenbom.eu/api/movement?event=";
         String requestString = baseString + eventID;
         requestString += "&value=" + movementValue;
-        HttpGet httpGet = new HttpGet(requestString);
-        try {
-            httpClient.execute(httpGet, localContext);
-            return true;
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-
+        new AsyncGetRequest().execute(requestString);
     }
 }

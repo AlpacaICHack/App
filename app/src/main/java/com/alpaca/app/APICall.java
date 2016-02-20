@@ -1,16 +1,12 @@
-package com.alpaca.app.apiinterface;
+package com.alpaca.app;
 
 import android.util.Pair;
-
-import com.alpaca.app.ServerInterface;
-import com.alpaca.app.SongInformation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class APICall implements ServerInterface{
-    @Override
-    public List<Pair<Integer, String>> getEvents() {
+public class APICall{
+    public static List<Pair<Integer, String>> getEvents() {
         List<Pair<Integer, String>> events
                 = new ArrayList<Pair<Integer, String>>();
         events.add(new Pair<Integer, String>(1, "Room One"));
@@ -19,8 +15,7 @@ public class APICall implements ServerInterface{
         return events;
     }
 
-    @Override
-    public Event getEvent(int eventId) {
+    public static Event getEvent(int eventId) {
         switch (eventId){
             case 1:
                 return new Event(1, "Room One");
@@ -32,8 +27,7 @@ public class APICall implements ServerInterface{
         return null;
     }
 
-    @Override
-    public List<SongInformation> getSongPool() {
+    public static List<SongInformation> getSongPool() {
         List<SongInformation> songs = new ArrayList<SongInformation>();
         SongInformation song1 = new SongInformation(1, "Name 1", "Artist 1");
         SongInformation song2 = new SongInformation(2, "Name 2", "Artist 1");
@@ -41,28 +35,23 @@ public class APICall implements ServerInterface{
         return songs;
     }
 
-    @Override
-    public void voteTrackUp(int songId) {
+    public static void voteTrackUp(int songId) {
 
     }
 
-    @Override
-    public void voteTrackDown(int songId) {
+    public static void voteTrackDown(int songId) {
 
     }
 
-    @Override
-    public void voteRequestUp(int requestId) {
+    public static void voteRequestUp(int requestId) {
 
     }
 
-    @Override
-    public void voteRequestDown(int requestId) {
+    public static void voteRequestDown(int requestId) {
 
     }
 
-    @Override
-    public void postMovement(int movement) {
+    public static void postMovement(int movement) {
 
     }
 }

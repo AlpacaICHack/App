@@ -1,11 +1,15 @@
 package com.alpaca.app;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -47,13 +51,21 @@ public class EventsAdapter extends BaseAdapter{
         TextView name = (TextView) v.findViewById(R.id.name);
         TextView description = (TextView) v.findViewById(R.id.description);
         TextView date = (TextView) v.findViewById(R.id.date);
+        ImageView image = (ImageView) v.findViewById(R.id.eventImage);
 
         Event event = events.get(i);
+
+        //Customise textviews
+        name.setMaxLines(1);
+        name.setEllipsize(TextUtils.TruncateAt.END);
+        description.setMaxLines(3);
+        description.setEllipsize(TextUtils.TruncateAt.END);
 
         //Draw information
         name.setText(event.getEventName());
         description.setText(event.getEventDescription());
         date.setText(event.getEventDate());
+        ImageLoader.getInstance().displayImage(event.getPictureURL(), image);
         return v;
     }
 }

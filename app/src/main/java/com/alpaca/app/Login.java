@@ -10,6 +10,8 @@ import android.widget.ListView;
 
 import com.alpaca.app.apiinterface.ServerListener;
 import com.alpaca.app.services.Accelerometer;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ public class Login extends ActionBarActivity implements ServerListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
+        ImageLoaderConfiguration configuration
+                = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(configuration);
         new APICall(this).getEvents();
 
         

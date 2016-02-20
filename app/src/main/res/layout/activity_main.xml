@@ -10,9 +10,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.alpaca.app.Login">
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </ListView>
 </RelativeLayout>

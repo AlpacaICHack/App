@@ -2,12 +2,12 @@ package com.alpaca.app;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -15,17 +15,19 @@ import android.widget.TextView;
  */
 public class CurrentSong extends Fragment{
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view =  inflater.inflate(R.layout.current_song, container, false);
         TextView trackTitle = (TextView) view.findViewById(R.id.trackTitle);
         TextView artistName = (TextView) view.findViewById(R.id.trackArtist);
-        trackTitle.setText("Shofukan");
-        artistName.setText("Snarky Puppy");
+        ImageView albumArtView = (ImageView) view.findViewById(R.id.albumArt);
         ImageButton upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
         ImageButton downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
+
+        trackTitle.setText("Shofukan");
+        artistName.setText("Snarky Puppy");
+        albumArtView.setImage
 
         upVoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +73,6 @@ public class CurrentSong extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    public void voteCurrTrack(View view) {
-
     }
 
 }

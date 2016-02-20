@@ -9,7 +9,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -38,10 +37,9 @@ public class Accelerometer extends Service implements SensorEventListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        Bundle extras = intent.getExtras();
 
-        if (extras != null) {
-            eventID = extras.getInt(Intents.EVENTID, -1);
+        if (intent.hasExtra(Intents.EVENTID)) {
+            eventID = intent.getExtras().getInt(Intents.EVENTID, -1);
         } else {
             throw new InvalidParameterException("Event ID required.");
         }

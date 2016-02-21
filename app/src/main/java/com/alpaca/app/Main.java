@@ -87,6 +87,7 @@ public class Main extends Activity implements ServerListener {
 
     @Override
     public void gotSong(SongInformation song) {
+
     }
 
     private CardModel createCard(SongInformation song) {

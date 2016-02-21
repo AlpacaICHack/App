@@ -1,6 +1,9 @@
 package com.alpaca.app;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,38 +12,50 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alpaca.app.apiinterface.ServerListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.List;
+
 /**
  * Created by mauriceyap on 20/02/16.
  */
-public class CurrentSong extends Fragment{
+public class CurrentSong extends Fragment implements ServerListener{
+
+    private TextView trackTitle;
+    private TextView artistName;
+    private ImageView albumArtView;
+    private ImageButton upVoteButton;
+    private ImageButton downVoteButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view =  inflater.inflate(R.layout.current_song, container, false);
-        TextView trackTitle = (TextView) view.findViewById(R.id.trackTitle);
-        TextView artistName = (TextView) view.findViewById(R.id.trackArtist);
-        ImageView albumArtView = (ImageView) view.findViewById(R.id.albumArt);
-        ImageButton upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
-        ImageButton downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
+        trackTitle = (TextView) view.findViewById(R.id.trackTitle);
+        artistName = (TextView) view.findViewById(R.id.trackArtist);
+        trackTitle.setSelected(true);
+        artistName.setSelected(true);
+        albumArtView = (ImageView) view.findViewById(R.id.albumArt);
+        upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
+        downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
 
-        trackTitle.setText("Shofukan");
-        artistName.setText("Snarky Puppy");
-        //albumArtView.setImage
-
-        upVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackUp();
+        Intent intent = getActivity().getIntent();
+        int eventId = intent.getIntExtra("id", -1);
+        if (eventId == -1) {
+            try {
+                throw new Exception();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
+        }
+        new APICall(this).getSong(eventId);
 
-        downVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackDown();
-            }
-        });
 
         return view;
 
@@ -74,4 +89,42 @@ public class CurrentSong extends Fragment{
         super.onResume();
     }
 
+
+    @Override
+    public void gotEvents(List<Event> events) {
+
+    }
+
+    @Override
+    public void gotEvent(Event event) {
+
+    }
+
+    @Override
+    public void gotPool(List<SongInformation> songs) {
+
+    }
+
+    @Override
+    public void gotSong(SongInformation song) {
+
+        trackTitle.setText(song.getSongName());
+        artistName.setText(song.getArtistName());
+        ImageLoader.getInstance().displayImage(song.getAlbumArtURL(), albumArtView);
+
+        upVoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currTrackUp();
+            }
+        });
+
+        downVoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currTrackDown();
+            }
+        });
+
+    }
 }

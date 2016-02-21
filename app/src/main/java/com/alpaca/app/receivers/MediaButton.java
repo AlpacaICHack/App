@@ -7,14 +7,17 @@ import android.media.AudioManager;
 import android.os.Vibrator;
 import android.util.Log;
 
+import com.alpaca.app.APICall;
 import com.alpaca.app.constants.Intents;
 
 public class MediaButton extends BroadcastReceiver {
     private static final String TAG = MediaButton.class.getSimpleName();
     private static int eventID = -1;
+    private Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        this.context = context;
         if (intent == null) {
             Log.e(TAG, "Null intent.");
             return;
@@ -62,7 +65,7 @@ public class MediaButton extends BroadcastReceiver {
         if (eventID == -1) {
             return;
         }
-
+        new APICall().voteCurrentSong(eventID, true, context);
         //ToDo
         Log.i(TAG, "Liked: " + String.valueOf(eventID));
     }
@@ -71,6 +74,7 @@ public class MediaButton extends BroadcastReceiver {
         if (eventID == -1) {
             return;
         }
+        new APICall().voteCurrentSong(eventID, false, context);
 
         //ToDo
         Log.i(TAG, "Disliked: " + String.valueOf(eventID));

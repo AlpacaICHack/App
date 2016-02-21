@@ -11,29 +11,31 @@ import com.alpaca.app.apiinterface.VoteCurrentSong;
 
 
 public class APICall{
-    private ServerListener context;
+    private ServerListener serverListenercontext;
 
     public APICall(ServerListener context){
-        this.context = context;
+        this.serverListenercontext = context;
     }
 
+    public APICall(){}
+
     public void getEvents(){
-        new GetEvents(context);
+        new GetEvents(serverListenercontext);
     }
 
     public void getEvent(int id){
-        new GetEvent(id, context);
+        new GetEvent(id, serverListenercontext);
     }
 
     public void getPool(int id){
-        new GetPool(id, context);
+        new GetPool(id, serverListenercontext);
     }
 
     public void getSong(int eventId){
-        new GetCurrentSong(eventId, context);
+        new GetCurrentSong(eventId, serverListenercontext);
     }
 
-    public void voteCurrentSong(int eventId, boolean isUp){
-        new VoteCurrentSong(eventId, isUp, (Context) context);
+    public void voteCurrentSong(int eventId, boolean isUp, Context context){
+        new VoteCurrentSong(eventId, isUp, context);
     }
 }

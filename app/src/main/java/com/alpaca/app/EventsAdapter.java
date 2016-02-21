@@ -56,10 +56,10 @@ public class EventsAdapter extends BaseAdapter{
         Event event = events.get(i);
 
         //Customise textviews
-        name.setMaxLines(1);
+/*        name.setMaxLines(1);
         name.setEllipsize(TextUtils.TruncateAt.END);
         description.setMaxLines(3);
-        description.setEllipsize(TextUtils.TruncateAt.END);
+        description.setEllipsize(TextUtils.TruncateAt.END);*/
 
         //Draw information
         name.setText(event.getEventName());

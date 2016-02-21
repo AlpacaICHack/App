@@ -10,25 +10,25 @@
         android:layout_gravity="center_horizontal">
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/downVote"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:background="#ff0000"
             android:longClickable="true"/>
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/upVote"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:background="#00ff00"/>
 
@@ -40,11 +40,17 @@
             android:layout_toRightOf="@+id/downVote"
             android:layout_toLeftOf="@+id/albumArt"
             android:layout_toStartOf="@+id/albumArt"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="55dp"
             android:layout_marginRight="0dp"
             android:layout_above="@+id/trackArtist">
 
             <TextView
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit ="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -53,24 +59,45 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Track Artist"
-                android:id="@+id/trackArtist"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/trackTitle"
-                android:layout_centerHorizontal="true" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+                <TextView
+                    android:ellipsize="marquee"
+                    android:gravity="left"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Track Artist"
+                    android:id="@+id/trackArtist"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
         </RelativeLayout>
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:id="@+id/albumArt"
-            android:layout_alignTop="@+id/relativeLayout"
             android:layout_toLeftOf="@+id/upVote"
-            android:layout_toStartOf="@+id/upVote"
             android:layout_marginRight="5dp"
-            android:background="#5224a8" />
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Current song"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/downVote"
+            android:layout_alignStart="@+id/downVote" />
     </RelativeLayout>
 </LinearLayout>

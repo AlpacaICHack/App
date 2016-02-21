@@ -2,6 +2,8 @@ package com.alpaca.app;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alpaca.app.apiinterface.ServerListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 /**
@@ -31,6 +39,8 @@ public class CurrentSong extends Fragment implements ServerListener{
         final View view =  inflater.inflate(R.layout.current_song, container, false);
         trackTitle = (TextView) view.findViewById(R.id.trackTitle);
         artistName = (TextView) view.findViewById(R.id.trackArtist);
+        trackTitle.setSelected(true);
+        artistName.setSelected(true);
         albumArtView = (ImageView) view.findViewById(R.id.albumArt);
         upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
         downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
@@ -100,7 +110,7 @@ public class CurrentSong extends Fragment implements ServerListener{
 
         trackTitle.setText(song.getSongName());
         artistName.setText(song.getArtistName());
-        // TODO: albumArtView.setImage
+        ImageLoader.getInstance().displayImage(song.getAlbumArtURL(), albumArtView);
 
         upVoteButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,8 +1,8 @@
 package com.alpaca.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
-public class Login extends ActionBarActivity implements ServerListener{
+public class Login extends Activity implements ServerListener{
     ListView listView;
 
     @Override

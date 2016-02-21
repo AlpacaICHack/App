@@ -1,15 +1,15 @@
 package com.alpaca.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.alpaca.app.apiinterface.ServerListener;
 import com.alpaca.app.constants.Tags;
@@ -26,6 +26,7 @@ import java.util.List;
 public class Main extends Activity implements ServerListener {
     private CardContainer cardContainer;
     private ScreenLock screenLock;
+    private AudioManager manager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,27 @@ public class Main extends Activity implements ServerListener {
 
         screenLock = new ScreenLock();
         screenLock.manageService(this);
+
+        manager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (event.getKeyCode()) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                manager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                manager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER,
+                        AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                return true;
+
+            default:
+                return super.onKeyDown(keyCode, event);
+        }
     }
 
     @Override

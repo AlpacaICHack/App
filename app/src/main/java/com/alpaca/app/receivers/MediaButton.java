@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
-import android.os.Vibrator;
 import android.util.Log;
 
-import com.alpaca.app.APICall;
 import com.alpaca.app.constants.Tags;
 
 public class MediaButton extends BroadcastReceiver {
@@ -18,11 +16,12 @@ public class MediaButton extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        this.context = context;
         if (intent == null) {
             Log.e(TAG, "Null intent.");
             return;
         }
+
+        this.context = context;
 
         if (eventID == -1) {
             SharedPreferences prefs = context.getSharedPreferences(Tags.SHARED_PREFFERENCES, Context.MODE_MULTI_PROCESS);
@@ -44,15 +43,10 @@ public class MediaButton extends BroadcastReceiver {
                 changeVolume(am, maxVolume - 1);
             }
 
-            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            long[] pattern = {0, 200, 100, 200};
-
             if (prevVolume != currentVolume && prevVolume != 0 && prevVolume != maxVolume) {
                 if (prevVolume > currentVolume) {
-                    vibrator.vibrate(300);
-                    dislike();
+                    unlike();
                 } else if (prevVolume < currentVolume) {
-                    vibrator.vibrate(pattern, -1);
                     like();
                 }
             }
@@ -66,20 +60,10 @@ public class MediaButton extends BroadcastReceiver {
     }
 
     private void like() {
-        if (eventID == -1) {
-            return;
-        }
-
-        new APICall().voteCurrentSong(eventID, true, context);
-        Log.i(TAG, "Liked: " + String.valueOf(eventID));
+        context.sendBroadcast(new Intent(Tags.LIKE));
     }
 
-    private void dislike() {
-        if (eventID == -1) {
-            return;
-        }
-
-        new APICall().voteCurrentSong(eventID, false, context);
-        Log.i(TAG, "Disliked: " + String.valueOf(eventID));
+    private void unlike() {
+        context.sendBroadcast(new Intent(Tags.UNLIKE));
     }
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/border"
+              android:orientation="vertical"
+              android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,86 +12,87 @@
         android:layout_gravity="center_horizontal">
 
         <ImageButton
+            android:id="@+id/downVote"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:id="@+id/downVote"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:longClickable="true"
+            android:layout_marginTop="30dp"
             android:adjustViewBounds="false"
-            android:src="@drawable/ic_thumb_down_black_48dp"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:longClickable="true"
+            android:src="@drawable/ic_thumb_down_black_48dp"/>
 
         <ImageButton
+            android:id="@+id/upVote"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:id="@+id/upVote"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/relativeLayout"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_thumb_up_black_48dp"
             android:background="@android:color/transparent"
-            android:layout_alignTop="@+id/relativeLayout"/>
+            android:src="@drawable/ic_thumb_up_black_48dp"/>
 
         <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_alignTop="@+id/downVote"
-            android:id="@+id/relativeLayout"
-            android:layout_toRightOf="@+id/downVote"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_above="@+id/trackArtist"
-            android:layout_toLeftOf="@+id/upVote">
+            android:layout_alignTop="@+id/downVote"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/upVote"
+            android:layout_toRightOf="@+id/downVote">
 
             <TextView
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:scrollHorizontally="true"
+                android:id="@+id/trackTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Track Title"
-                android:id="@+id/trackTitle"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="Track Title"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/trackTitle"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/trackTitle">
+
                 <TextView
+                    android:id="@+id/trackArtist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
                     android:ellipsize="marquee"
                     android:gravity="left"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Track Artist"
-                    android:id="@+id/trackArtist"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             </RelativeLayout>
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Current song"
-            android:id="@+id/textView"
-            android:layout_alignParentTop="true"
             android:layout_alignLeft="@+id/downVote"
-            android:layout_alignStart="@+id/downVote" />
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/downVote"
+            android:text="Current song"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
     </RelativeLayout>
 </LinearLayout>

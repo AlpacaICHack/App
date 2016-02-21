@@ -5,11 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -60,15 +58,17 @@ public class CurrentSong extends Fragment implements ServerListener{
     public void currTrackUp() {
         SharedPreferences prefs = getActivity().getSharedPreferences(Tags.SHARED_PREFFERENCES, Context.MODE_MULTI_PROCESS);
         int eventID = prefs.getInt(Tags.EVENT_ID, -1);
+
         new APICall().voteCurrentSong(eventID, true, getActivity());
-        Log.i(TAG, "Liked: " + String.valueOf(eventID));
+        getActivity().sendBroadcast(new Intent(Tags.LIKE));
     }
 
     public void currTrackDown() {
         SharedPreferences prefs = getActivity().getSharedPreferences(Tags.SHARED_PREFFERENCES, Context.MODE_MULTI_PROCESS);
         int eventID = prefs.getInt(Tags.EVENT_ID, -1);
+
         new APICall().voteCurrentSong(eventID, false, getActivity());
-        Log.i(TAG, "Disliked: " + String.valueOf(eventID));
+        getActivity().sendBroadcast(new Intent(Tags.UNLIKE));
     }
 
     @Override
@@ -118,14 +118,14 @@ public class CurrentSong extends Fragment implements ServerListener{
                 @Override
                 public void onClick(View v) {
                     currTrackUp();
-                    v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.click_image));
+                    //v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.click_image));
                 }
             });
             downVoteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     currTrackDown();
-                    v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.click_image));
+                    //v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.click_image));
                 }
             });
         } else {

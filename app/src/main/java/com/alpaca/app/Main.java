@@ -47,7 +47,7 @@ public class Main extends Activity implements ServerListener {
                 new APICall().voteCurrentSong(eventID, true, context);
                 vibrator.vibrate(pattern, -1);
             } else if(intent.getAction().equalsIgnoreCase(Tags.UNLIKE)) {
-                Util.createCrouton(Main.this, "Unliked");
+                Util.createCrouton(Main.this, "Disliked");
                 new APICall().voteCurrentSong(eventID, false, context);
                 vibrator.vibrate(300);
             }

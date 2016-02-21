@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alpaca.app.APICall;
@@ -22,7 +21,6 @@ public class CurrentSong extends Fragment implements ServerListener{
 
     private TextView trackTitle;
     private TextView artistName;
-    private ImageView albumArtView;
     private ImageButton upVoteButton;
     private ImageButton downVoteButton;
 
@@ -100,21 +98,27 @@ public class CurrentSong extends Fragment implements ServerListener{
     @Override
     public void gotSong(SongInformation song) {
 
-        trackTitle.setText(song.getSongName());
-        artistName.setText(song.getArtistName());
+        if (song != null) {
+            trackTitle.setText(song.getSongName());
+            artistName.setText(song.getArtistName());
 
-        upVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackUp();
-            }
-        });
-        downVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackDown();
-            }
-        });
-
+            upVoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currTrackUp();
+                }
+            });
+            downVoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currTrackDown();
+                }
+            });
+        } else {
+            trackTitle.setText("No song");
+            artistName.setVisibility(View.INVISIBLE);
+            upVoteButton.setVisibility(View.INVISIBLE);
+            downVoteButton.setVisibility(View.INVISIBLE);
+        }
     }
 }

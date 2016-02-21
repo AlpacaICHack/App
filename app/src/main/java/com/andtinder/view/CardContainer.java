@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
@@ -26,6 +27,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.alpaca.app.R;
+import com.alpaca.app.Util;
 import com.andtinder.model.CardModel;
 import com.andtinder.model.Orientations.Orientation;
 
@@ -467,6 +469,10 @@ public class CardContainer extends AdapterView<ListAdapter> {
                         title.setTextColor(0xFF00FF00);
                         cardModel.getOnCardDismissedListener().onLike(cardModel.getSong());
                         counter += 1;
+                        if (counter == adapter.getCount()){
+                            Util.createCrouton((Activity) getContext(),
+                                    "There are no more songs in the queue");
+                        }
                     } else {
                         topCard.setBackgroundResource(R.drawable.border_red);
                         TextView title = (TextView)
@@ -474,6 +480,10 @@ public class CardContainer extends AdapterView<ListAdapter> {
                         title.setTextColor(0xFFFF0000);
                         cardModel.getOnCardDismissedListener().onDislike(cardModel.getSong());
                         counter += 1;
+                        if (counter == adapter.getCount()){
+                            Util.createCrouton((Activity) getContext(),
+                                    "There are no more songs in the queue");
+                        }
                     }
                 }
 

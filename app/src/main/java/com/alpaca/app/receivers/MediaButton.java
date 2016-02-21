@@ -69,8 +69,8 @@ public class MediaButton extends BroadcastReceiver {
         if (eventID == -1) {
             return;
         }
+
         new APICall().voteCurrentSong(eventID, true, context);
-        //ToDo
         Log.i(TAG, "Liked: " + String.valueOf(eventID));
     }
 
@@ -78,9 +78,8 @@ public class MediaButton extends BroadcastReceiver {
         if (eventID == -1) {
             return;
         }
-        new APICall().voteCurrentSong(eventID, false, context);
 
-        //ToDo
+        new APICall().voteCurrentSong(eventID, false, context);
         Log.i(TAG, "Disliked: " + String.valueOf(eventID));
     }
 }

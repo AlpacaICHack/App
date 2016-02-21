@@ -1,11 +1,14 @@
 package com.alpaca.app;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +26,41 @@ import com.andtinder.view.SimpleCardStackAdapter;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
 public class Main extends Activity implements ServerListener {
     private CardContainer cardContainer;
     private ScreenLock screenLock;
     private AudioManager manager;
+    private int eventID;
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (eventID == -1) {
+                return;
+            }
+
+            Crouton.cancelAllCroutons();
+            Style style = new Style.Builder()
+                    .setTextSize(15)
+                    .build();
+
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            long[] pattern = {0, 200, 100, 200};
+
+            if(intent.getAction().equalsIgnoreCase(Tags.LIKE)) {
+                Crouton.makeText(Main.this, "Liked", style).show();
+                new APICall().voteCurrentSong(eventID, true, context);
+                vibrator.vibrate(pattern, -1);
+            } else if(intent.getAction().equalsIgnoreCase(Tags.UNLIKE)) {
+                Crouton.makeText(Main.this, "Unliked", style).show();
+                new APICall().voteCurrentSong(eventID, false, context);
+                vibrator.vibrate(300);
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,8 +68,6 @@ public class Main extends Activity implements ServerListener {
         setContentView(R.layout.activity_main);
 
         Intent extras = getIntent();
-        int eventID;
-
         if (extras != null) {
             eventID = extras.getIntExtra("id", -1);
 
@@ -57,6 +89,9 @@ public class Main extends Activity implements ServerListener {
         screenLock.manageService(this);
 
         manager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+        registerReceiver(receiver, new IntentFilter(Tags.LIKE));
+        registerReceiver(receiver, new IntentFilter(Tags.UNLIKE));
     }
 
     @Override
@@ -88,6 +123,7 @@ public class Main extends Activity implements ServerListener {
 
         screenLock.stopService();
         stopService(new Intent(Main.this, Accelerometer.class));
+        unregisterReceiver(receiver);
     }
 
     @Override

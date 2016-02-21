@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
 
 import com.alpaca.app.apiinterface.ServerListener;
 import com.alpaca.app.constants.Tags;
@@ -107,5 +111,23 @@ public class Main extends Activity implements ServerListener {
         });
 
         return card;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.add_request:
+                new RequestFragment().show(getFragmentManager(), "");
+                break;
+        }
+        return true;
     }
 }

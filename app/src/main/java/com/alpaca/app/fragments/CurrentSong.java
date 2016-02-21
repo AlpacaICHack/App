@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ public class CurrentSong extends Fragment implements ServerListener{
     private TextView artistName;
     private ImageButton upVoteButton;
     private ImageButton downVoteButton;
+    private int eventId;
+    private ServerListener context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,9 +43,10 @@ public class CurrentSong extends Fragment implements ServerListener{
         artistName.setSelected(true);
         upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
         downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
+        context = this;
 
         Intent intent = getActivity().getIntent();
-        int eventId = intent.getIntExtra("id", -1);
+        eventId = intent.getIntExtra("id", -1);
         if (eventId == -1) {
             try {
                 throw new Exception();
@@ -134,5 +138,12 @@ public class CurrentSong extends Fragment implements ServerListener{
             upVoteButton.setVisibility(View.INVISIBLE);
             downVoteButton.setVisibility(View.INVISIBLE);
         }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new APICall(context).getSong(eventId);
+            }
+        }, 5000);
     }
 }

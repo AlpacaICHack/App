@@ -9,6 +9,7 @@ import com.alpaca.app.apiinterface.GetPool;
 import com.alpaca.app.apiinterface.MakeRequest;
 import com.alpaca.app.apiinterface.ServerListener;
 import com.alpaca.app.apiinterface.VoteCurrentSong;
+import com.alpaca.app.apiinterface.VoteSong;
 
 
 public class APICall{
@@ -42,5 +43,9 @@ public class APICall{
 
     public void requestSong(int eventId, String artistName, String songName){
         new MakeRequest(eventId, artistName, songName).submit();
+    }
+
+    public void voteSong(SongInformation song, boolean isUp, Context context){
+        new VoteSong(song, isUp, context).submitVote();
     }
 }

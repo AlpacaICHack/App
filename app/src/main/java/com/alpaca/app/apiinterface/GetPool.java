@@ -34,6 +34,7 @@ public class GetPool implements AsyncTaskListener {
                 SongInformation song = new SongInformation(
                     id, name, artist, artwork, isRequest
                 );
+                new AsyncDownloadSongImage(song).execute(song.getAlbumArtURL());
                 songs.add(song);
             }
         } catch (JSONException e) {

@@ -1,11 +1,14 @@
 package com.alpaca.app;
 
+import android.graphics.Bitmap;
+
 public class SongInformation {
     private int id;
     private String songName;
     private String artistName;
     private String albumArtURL;
     private boolean isRequest;
+    private Bitmap image;
 
     public SongInformation(int id, String songName, String artistName,
                            String albumArtURL, boolean isRequest) {
@@ -54,5 +57,13 @@ public class SongInformation {
 
     public void setIsRequest(boolean isRequest) {
         this.isRequest = isRequest;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 }

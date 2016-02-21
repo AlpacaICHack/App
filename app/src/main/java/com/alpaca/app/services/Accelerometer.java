@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,6 +16,7 @@ import android.os.PowerManager;
 
 import com.alpaca.app.Util;
 import com.alpaca.app.apiinterface.SendMovement;
+import com.alpaca.app.constants.Tags;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,8 +43,8 @@ public class Accelerometer extends Service implements SensorEventListener {
         lastUpdateTime = Calendar.getInstance().getTimeInMillis() + 1000;
         localMaximums = new ArrayList<>();
 
-        //SharedPreferences prefs = getSharedPreferences(Tags.SHARED_PREFFERENCES, MODE_MULTI_PROCESS);
-        //eventID = prefs.getInt(Tags.EVENT_ID, -1);
+        SharedPreferences prefs = getSharedPreferences(Tags.SHARED_PREFFERENCES, MODE_MULTI_PROCESS);
+        eventID = prefs.getInt(Tags.EVENT_ID, -1);
 
         return START_STICKY;
     }

@@ -2,7 +2,6 @@ package com.alpaca.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -93,11 +92,11 @@ public class Main extends Activity implements ServerListener {
     private CardModel createCard(SongInformation song) {
         String title = song.getSongName();
         String description = song.getArtistName();
-        Bitmap image = null;
 
-        CardModel card = new CardModel(title, description, getResources().getDrawable(R.drawable.picture1));
+        //CardModel card = new CardModel(title, description, getResources().getDrawable(R.drawable.picture1));
+        CardModel card = new CardModel(title, description, song.getAlbumArtURL());
 
-        card.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
+        card.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
             @Override
             public void onLike() {
                 Log.d("Swipeable CardModel", "I did not liked it");
@@ -109,12 +108,12 @@ public class Main extends Activity implements ServerListener {
             }
         });
 
-        card.setOnClickListener(new CardModel.OnClickListener() {
+        /*card.setOnClickListener(new CardModel.OnClickListener() {
             @Override
             public void OnClickListener() {
                 Log.i("Swipeable Cards", "I am pressing the card");
             }
-        });
+        });*/
 
         return card;
     }

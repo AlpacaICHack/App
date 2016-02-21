@@ -1,9 +1,7 @@
-package com.alpaca.app;
+package com.alpaca.app.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +10,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alpaca.app.APICall;
+import com.alpaca.app.Event;
+import com.alpaca.app.R;
+import com.alpaca.app.SongInformation;
 import com.alpaca.app.apiinterface.ServerListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 
-/**
- * Created by mauriceyap on 20/02/16.
- */
 public class CurrentSong extends Fragment implements ServerListener{
 
     private TextView trackTitle;

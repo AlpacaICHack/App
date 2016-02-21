@@ -16,7 +16,8 @@
         android:textColor="@android:color/primary_text_light"
         android:textSize="24sp"
         android:textStyle="bold"
-        tools:text="Title" />
+        tools:text="Title"
+        android:lines="1"/>
 
     <View
         android:id="@+id/divider_title"

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 
 import com.alpaca.app.apiinterface.ServerListener;
 import com.alpaca.app.constants.Intents;
@@ -26,7 +25,6 @@ public class Main extends Activity implements ServerListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         Intent extras = getIntent();
@@ -100,19 +98,14 @@ public class Main extends Activity implements ServerListener {
         card.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
             @Override
             public void onLike() {
-                Log.d("Swipeable CardModel", "I did not liked it");
+                //Actually dislike
+                Log.d("Swipeable CardModel", "I disliked it");
             }
 
             @Override
             public void onDislike() {
+                //Actually like
                 Log.d("Swipeable CardModel", "I liked it");
-            }
-        });
-
-        card.setOnClickListener(new CardModel.OnClickListener() {
-            @Override
-            public void OnClickListener() {
-                Log.i("Swipeable Cards", "I am pressing the card");
             }
         });
 

@@ -20,13 +20,28 @@
         android:layout_gravity="top"
         android:layout_marginBottom="100dp" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+    </FrameLayout>
 
-    <fragment
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:name="com.alpaca.app.CurrentSong"
-        android:id="@+id/currentSongFragment"
-        tools:layout="@layout/current_song"
-        android:layout_marginTop="-100dp" />
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        android:layout_marginTop="-90dp">
+
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:name="com.alpaca.app.fragments.CurrentSong"
+            android:id="@+id/currentSongFragment"
+            tools:layout="@layout/current_song"/>
+    </android.support.v7.widget.CardView>
+
 
 </LinearLayout>

@@ -135,6 +135,10 @@ public class CardContainer extends AdapterView<ListAdapter> {
             mTopCard = getChildAt(getChildCount() - 1);
             mTopCard.setLayerType(LAYER_TYPE_HARDWARE, null);
         }
+        else {
+            Util.createCrouton((Activity) getContext(),
+                    "There are no songs in the queue");
+        }
         mNumberOfCards = getAdapter().getCount();
         requestLayout();
     }

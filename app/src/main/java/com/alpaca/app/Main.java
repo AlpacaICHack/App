@@ -26,9 +26,6 @@ import com.andtinder.view.SimpleCardStackAdapter;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
-
 public class Main extends Activity implements ServerListener {
     private CardContainer cardContainer;
     private ScreenLock screenLock;
@@ -42,20 +39,15 @@ public class Main extends Activity implements ServerListener {
                 return;
             }
 
-            Crouton.cancelAllCroutons();
-            Style style = new Style.Builder()
-                    .setTextSize(15)
-                    .build();
-
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             long[] pattern = {0, 200, 100, 200};
 
             if(intent.getAction().equalsIgnoreCase(Tags.LIKE)) {
-                Crouton.makeText(Main.this, "Liked", style).show();
+                Util.createCrouton(Main.this, "Liked");
                 new APICall().voteCurrentSong(eventID, true, context);
                 vibrator.vibrate(pattern, -1);
             } else if(intent.getAction().equalsIgnoreCase(Tags.UNLIKE)) {
-                Crouton.makeText(Main.this, "Unliked", style).show();
+                Util.createCrouton(Main.this, "Unliked");
                 new APICall().voteCurrentSong(eventID, false, context);
                 vibrator.vibrate(300);
             }

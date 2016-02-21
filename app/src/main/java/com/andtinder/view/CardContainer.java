@@ -460,9 +460,11 @@ public class CardContainer extends AdapterView<ListAdapter> {
 
                 if (cardModel.getOnCardDismissedListener() != null) {
                     if ( targetX > 0 ) {
+                        topCard.setBackgroundColor(0xFF00FF00);
                         cardModel.getOnCardDismissedListener().onLike(cardModel.getSong());
                         counter += 1;
                     } else {
+                        topCard.setBackgroundColor(0xFFFF0000);
                         cardModel.getOnCardDismissedListener().onDislike(cardModel.getSong());
                         counter += 1;
                     }

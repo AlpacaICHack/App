@@ -15,7 +15,6 @@ import com.alpaca.app.Event;
 import com.alpaca.app.R;
 import com.alpaca.app.SongInformation;
 import com.alpaca.app.apiinterface.ServerListener;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -35,7 +34,6 @@ public class CurrentSong extends Fragment implements ServerListener{
         artistName = (TextView) view.findViewById(R.id.trackArtist);
         trackTitle.setSelected(true);
         artistName.setSelected(true);
-        albumArtView = (ImageView) view.findViewById(R.id.albumArt);
         upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
         downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
 
@@ -104,7 +102,6 @@ public class CurrentSong extends Fragment implements ServerListener{
 
         trackTitle.setText(song.getSongName());
         artistName.setText(song.getArtistName());
-        ImageLoader.getInstance().displayImage(song.getAlbumArtURL(), albumArtView);
 
         upVoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +109,6 @@ public class CurrentSong extends Fragment implements ServerListener{
                 currTrackUp();
             }
         });
-
         downVoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

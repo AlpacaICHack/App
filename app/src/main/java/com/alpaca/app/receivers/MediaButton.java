@@ -3,12 +3,13 @@ package com.alpaca.app.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Vibrator;
 import android.util.Log;
 
 import com.alpaca.app.APICall;
-import com.alpaca.app.constants.Intents;
+import com.alpaca.app.constants.Tags;
 
 public class MediaButton extends BroadcastReceiver {
     private static final String TAG = MediaButton.class.getSimpleName();
@@ -21,6 +22,11 @@ public class MediaButton extends BroadcastReceiver {
         if (intent == null) {
             Log.e(TAG, "Null intent.");
             return;
+        }
+
+        if (eventID == -1) {
+            SharedPreferences prefs = context.getSharedPreferences(Tags.SHARED_PREFFERENCES, Context.MODE_MULTI_PROCESS);
+            eventID = prefs.getInt(Tags.EVENT_ID, -1);
         }
 
         if (intent.getAction().equals("android.media.VOLUME_CHANGED_ACTION")) {
@@ -50,8 +56,6 @@ public class MediaButton extends BroadcastReceiver {
                     like();
                 }
             }
-        } else if (intent.getAction().equals(Intents.EVENTID)) {
-            eventID = intent.getIntExtra(Intents.EVENTID, -1);
         }
     }
 

@@ -13,10 +13,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 
+import com.alpaca.app.Util;
 import com.alpaca.app.apiinterface.SendMovement;
-import com.alpaca.app.constants.Intents;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -25,7 +24,6 @@ import java.util.List;
 public class Accelerometer extends Service implements SensorEventListener {
     public static final String TAG = Accelerometer.class.getName();
     public static final int SCREEN_OFF_RECEIVER_DELAY = 500;
-    public static final Calendar calendar = Calendar.getInstance();
 
     private float previousMax = Float.MIN_VALUE;
     private int eventID = -1;
@@ -38,16 +36,13 @@ public class Accelerometer extends Service implements SensorEventListener {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        if (intent.hasExtra(Intents.EVENTID)) {
-            eventID = intent.getExtras().getInt(Intents.EVENTID, -1);
-        } else {
-            throw new InvalidParameterException("Event ID required.");
-        }
-
         registerListener();
         wakeLock.acquire();
         lastUpdateTime = Calendar.getInstance().getTimeInMillis() + 1000;
-        localMaximums = new ArrayList<Float>();
+        localMaximums = new ArrayList<>();
+
+        //SharedPreferences prefs = getSharedPreferences(Tags.SHARED_PREFFERENCES, MODE_MULTI_PROCESS);
+        //eventID = prefs.getInt(Tags.EVENT_ID, -1);
 
         return START_STICKY;
     }
@@ -74,10 +69,8 @@ public class Accelerometer extends Service implements SensorEventListener {
         super.onCreate();
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
         PowerManager manager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = manager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
-
         registerReceiver(mReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
     }
 
@@ -149,6 +142,6 @@ public class Accelerometer extends Service implements SensorEventListener {
     }
 
     private double timeFromLastUpdate() {
-        return calendar.getTimeInMillis() - lastUpdateTime;
+        return Util.getTimeInMillis() - lastUpdateTime;
     }
 }

@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:background="@color/card_bg"
         tools:text="Title"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:lines="1"/>
 
     <View
         android:id="@+id/divider_title"

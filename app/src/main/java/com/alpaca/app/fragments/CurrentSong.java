@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -117,12 +118,14 @@ public class CurrentSong extends Fragment implements ServerListener{
                 @Override
                 public void onClick(View v) {
                     currTrackUp();
+                    v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.click_image));
                 }
             });
             downVoteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     currTrackDown();
+                    v.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.click_image));
                 }
             });
         } else {

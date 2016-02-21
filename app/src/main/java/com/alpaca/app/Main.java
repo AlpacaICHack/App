@@ -2,7 +2,6 @@ package com.alpaca.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -88,24 +87,18 @@ public class Main extends Activity implements ServerListener {
 
     }
 
-    private CardModel createCard(SongInformation song) {
-        String title = song.getSongName();
-        String description = song.getArtistName();
-        Bitmap image = null;
+    private CardModel createCard(final SongInformation song) {
+        CardModel card = new CardModel(song);
 
-        CardModel card = new CardModel(title, description, getResources().getDrawable(R.drawable.picture1));
-
-        card.setOnCardDimissedListener(new CardModel.OnCardDimissedListener() {
+        card.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
             @Override
-            public void onLike() {
-                //Actually dislike
-                Log.d("Swipeable CardModel", "I disliked it");
+            public void onLike(SongInformation song) {
+                new APICall().voteSong(song, true, getApplication());
             }
 
             @Override
-            public void onDislike() {
-                //Actually like
-                Log.d("Swipeable CardModel", "I liked it");
+            public void onDislike(SongInformation song) {
+                new APICall().voteSong(song, false, getApplication());
             }
         });
 

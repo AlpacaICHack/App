@@ -27,5 +27,4 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile files('libs/universal-image-loader-1.9.5.jar')
-    compile 'com.github.kikoso:SwipeableCards:1.1-RELEASE@aar'
 }

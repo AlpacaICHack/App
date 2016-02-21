@@ -3,7 +3,6 @@ package com.alpaca.app.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.util.Log;
 
@@ -11,7 +10,6 @@ import com.alpaca.app.constants.Tags;
 
 public class MediaButton extends BroadcastReceiver {
     private static final String TAG = MediaButton.class.getSimpleName();
-    private static int eventID = -1;
     private Context context;
 
     @Override
@@ -22,11 +20,6 @@ public class MediaButton extends BroadcastReceiver {
         }
 
         this.context = context;
-
-        if (eventID == -1) {
-            SharedPreferences prefs = context.getSharedPreferences(Tags.SHARED_PREFFERENCES, Context.MODE_MULTI_PROCESS);
-            eventID = prefs.getInt(Tags.EVENT_ID, -1);
-        }
 
         if (intent.getAction().equals("android.media.VOLUME_CHANGED_ACTION")) {
             int prevVolume = intent.getExtras().getInt(

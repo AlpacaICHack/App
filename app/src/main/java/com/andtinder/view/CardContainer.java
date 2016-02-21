@@ -23,6 +23,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.alpaca.app.R;
 import com.andtinder.model.CardModel;
@@ -460,11 +461,17 @@ public class CardContainer extends AdapterView<ListAdapter> {
 
                 if (cardModel.getOnCardDismissedListener() != null) {
                     if ( targetX > 0 ) {
-                        topCard.setBackgroundColor(0xFF00FF00);
+                        topCard.setBackgroundResource(R.drawable.border_green);
+                        TextView title = (TextView)
+                                topCard.findViewById(R.id.title);
+                        title.setTextColor(0xFF00FF00);
                         cardModel.getOnCardDismissedListener().onLike(cardModel.getSong());
                         counter += 1;
                     } else {
-                        topCard.setBackgroundColor(0xFFFF0000);
+                        topCard.setBackgroundResource(R.drawable.border_red);
+                        TextView title = (TextView)
+                                topCard.findViewById(R.id.title);
+                        title.setTextColor(0xFFFF0000);
                         cardModel.getOnCardDismissedListener().onDislike(cardModel.getSong());
                         counter += 1;
                     }

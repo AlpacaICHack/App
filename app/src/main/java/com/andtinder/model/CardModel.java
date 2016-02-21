@@ -22,11 +22,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.alpaca.app.SongInformation;
+
 public class CardModel {
 
 	private String   title;
 	private String   description;
 	private String   imageUrl;
+	private SongInformation song;
 	private Drawable cardImageDrawable;
 	private Drawable cardLikeImageDrawable;
 	private Drawable cardDislikeImageDrawable;
@@ -36,8 +39,8 @@ public class CardModel {
     private OnClickListener mOnClickListener = null;
 
     public interface OnCardDismissedListener {
-        void onLike();
-        void onDislike();
+        void onLike(SongInformation song);
+        void onDislike(SongInformation song);
     }
 
     public interface OnClickListener {
@@ -60,10 +63,11 @@ public class CardModel {
 		this.cardImageDrawable = new BitmapDrawable(null, cardImage);
 	}
 
-	public CardModel(String title, String description, String imageUrl) {
-		this.title = title;
-		this.description = description;
-		this.imageUrl = imageUrl;
+	public CardModel(SongInformation song) {
+		this.title = song.getSongName();
+		this.description = "";
+		this.imageUrl = song.getAlbumArtURL();
+        this.song = song;
 	}
 	public String getTitle() {
 		return title;
@@ -85,7 +89,11 @@ public class CardModel {
 		return imageUrl;
 	}
 
-	public Drawable getCardImageDrawable() {
+    public SongInformation getSong() {
+        return song;
+    }
+
+    public Drawable getCardImageDrawable() {
 		return cardImageDrawable;
 	}
 

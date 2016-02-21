@@ -79,17 +79,13 @@ public abstract class CardStackAdapter extends BaseCardStackAdapter {
     }
 
     public void add(CardModel item) {
-		synchronized (mLock) {
-			mData.add(item);
-		}
+        mData.add(item);
 		notifyDataSetChanged();
 	}
 
 	public CardModel pop() {
 		CardModel model;
-		synchronized (mLock) {
-			model = mData.remove(mData.size() - 1);
-		}
+        model = mData.remove(mData.size() - 1);
 		notifyDataSetChanged();
 		return model;
 	}
@@ -100,9 +96,8 @@ public abstract class CardStackAdapter extends BaseCardStackAdapter {
 	}
 
 	public CardModel getCardModel(int position) {
-		synchronized (mLock) {
-			return mData.get(mData.size() - 1 - position);
-		}
+        //return mData.get(mData.size() - 1 - position);
+        return mData.get(position);
 	}
 
 	@Override

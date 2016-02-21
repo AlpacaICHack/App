@@ -35,6 +35,7 @@ public class CardContainer extends AdapterView<ListAdapter> {
     private int mActivePointerId = INVALID_POINTER_ID;
     private static final double DISORDERED_MAX_ROTATION_RADIANS = Math.PI / 64;
     private int mNumberOfCards = -1;
+    private int counter = 0;
     private final DataSetObserver mDataSetObserver = new DataSetObserver() {
         @Override
         public void onChanged() {
@@ -425,6 +426,9 @@ public class CardContainer extends AdapterView<ListAdapter> {
     private class GestureListener extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (counter >= getAdapter().getCount()){
+                return false;
+            }
             Log.d("Fling", "Fling with " + velocityX + ", " + velocityY);
             final View topCard = mTopCard;
             float dx = e2.getX() - e1.getX();
@@ -446,16 +450,21 @@ public class CardContainer extends AdapterView<ListAdapter> {
                 duration = Math.min(500, duration);
 
                 mTopCard = getChildAt(getChildCount() - 2);
-                CardModel cardModel = (CardModel)getAdapter().getItem(getChildCount() - 1);
+                //CardModel cardModel = (CardModel)getAdapter().getItem(getChildCount() - 1);
+                ListAdapter adapter = getAdapter();
+                //CardModel cardModel = (CardModel) adapter.getItem(adapter.getCount() - 1);
+                CardModel cardModel = (CardModel) adapter.getItem(counter);
 
                 if(mTopCard != null)
                     mTopCard.setLayerType(LAYER_TYPE_HARDWARE, null);
 
                 if (cardModel.getOnCardDismissedListener() != null) {
                     if ( targetX > 0 ) {
-                        cardModel.getOnCardDismissedListener().onLike();
+                        cardModel.getOnCardDismissedListener().onLike(cardModel.getSong());
+                        counter += 1;
                     } else {
-                        cardModel.getOnCardDismissedListener().onDislike();
+                        cardModel.getOnCardDismissedListener().onDislike(cardModel.getSong());
+                        counter += 1;
                     }
                 }
 

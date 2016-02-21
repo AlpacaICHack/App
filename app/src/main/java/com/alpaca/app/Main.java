@@ -89,31 +89,20 @@ public class Main extends Activity implements ServerListener {
 
     }
 
-    private CardModel createCard(SongInformation song) {
-        String title = song.getSongName();
-        String description = song.getArtistName();
-
-        //CardModel card = new CardModel(title, description, getResources().getDrawable(R.drawable.picture1));
-        CardModel card = new CardModel(title, description, song.getAlbumArtURL());
+    private CardModel createCard(final SongInformation song) {
+        CardModel card = new CardModel(song);
 
         card.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
             @Override
-            public void onLike() {
-                Log.d("Swipeable CardModel", "I did not liked it");
+            public void onLike(SongInformation song) {
+                new APICall().voteSong(song, true, getApplication());
             }
 
             @Override
-            public void onDislike() {
-                Log.d("Swipeable CardModel", "I liked it");
+            public void onDislike(SongInformation song) {
+                new APICall().voteSong(song, false, getApplication());
             }
         });
-
-        /*card.setOnClickListener(new CardModel.OnClickListener() {
-            @Override
-            public void OnClickListener() {
-                Log.i("Swipeable Cards", "I am pressing the card");
-            }
-        });*/
 
         return card;
     }

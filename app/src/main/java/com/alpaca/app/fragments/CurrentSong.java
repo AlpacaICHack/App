@@ -1,13 +1,15 @@
 package com.alpaca.app.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alpaca.app.APICall;
@@ -15,15 +17,15 @@ import com.alpaca.app.Event;
 import com.alpaca.app.R;
 import com.alpaca.app.SongInformation;
 import com.alpaca.app.apiinterface.ServerListener;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.alpaca.app.constants.Tags;
 
 import java.util.List;
 
 public class CurrentSong extends Fragment implements ServerListener{
+    private static final String TAG = CurrentSong.class.getSimpleName();
 
     private TextView trackTitle;
     private TextView artistName;
-    private ImageView albumArtView;
     private ImageButton upVoteButton;
     private ImageButton downVoteButton;
 
@@ -35,7 +37,6 @@ public class CurrentSong extends Fragment implements ServerListener{
         artistName = (TextView) view.findViewById(R.id.trackArtist);
         trackTitle.setSelected(true);
         artistName.setSelected(true);
-        albumArtView = (ImageView) view.findViewById(R.id.albumArt);
         upVoteButton = (ImageButton) view.findViewById(R.id.upVote);
         downVoteButton = (ImageButton) view.findViewById(R.id.downVote);
 
@@ -56,11 +57,17 @@ public class CurrentSong extends Fragment implements ServerListener{
     }
 
     public void currTrackUp() {
-
+        SharedPreferences prefs = getActivity().getSharedPreferences(Tags.SHARED_PREFFERENCES, Context.MODE_MULTI_PROCESS);
+        int eventID = prefs.getInt(Tags.EVENT_ID, -1);
+        new APICall().voteCurrentSong(eventID, true, getActivity());
+        Log.i(TAG, "Liked: " + String.valueOf(eventID));
     }
 
     public void currTrackDown() {
-
+        SharedPreferences prefs = getActivity().getSharedPreferences(Tags.SHARED_PREFFERENCES, Context.MODE_MULTI_PROCESS);
+        int eventID = prefs.getInt(Tags.EVENT_ID, -1);
+        new APICall().voteCurrentSong(eventID, false, getActivity());
+        Log.i(TAG, "Disliked: " + String.valueOf(eventID));
     }
 
     @Override
@@ -102,23 +109,27 @@ public class CurrentSong extends Fragment implements ServerListener{
     @Override
     public void gotSong(SongInformation song) {
 
-        trackTitle.setText(song.getSongName());
-        artistName.setText(song.getArtistName());
-        ImageLoader.getInstance().displayImage(song.getAlbumArtURL(), albumArtView);
+        if (song != null) {
+            trackTitle.setText(song.getSongName());
+            artistName.setText(song.getArtistName());
 
-        upVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackUp();
-            }
-        });
-
-        downVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currTrackDown();
-            }
-        });
-
+            upVoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currTrackUp();
+                }
+            });
+            downVoteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currTrackDown();
+                }
+            });
+        } else {
+            trackTitle.setText("No song");
+            artistName.setVisibility(View.INVISIBLE);
+            upVoteButton.setVisibility(View.INVISIBLE);
+            downVoteButton.setVisibility(View.INVISIBLE);
+        }
     }
 }

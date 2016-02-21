@@ -2,11 +2,13 @@ package com.alpaca.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.alpaca.app.apiinterface.ServerListener;
-import com.alpaca.app.constants.Intents;
+import com.alpaca.app.constants.Tags;
 import com.alpaca.app.services.Accelerometer;
 import com.alpaca.app.services.ScreenLock;
 import com.andtinder.model.CardModel;
@@ -36,26 +38,28 @@ public class Main extends Activity implements ServerListener {
                 throw new InvalidParameterException("Wrong event ID");
             }
 
-            Intent intent = new Intent(Intents.EVENTID);
-            intent.putExtra(Intents.EVENTID, eventID);
-            sendBroadcast(intent);
+            SharedPreferences.Editor editor = getSharedPreferences(Tags.SHARED_PREFFERENCES, MODE_MULTI_PROCESS).edit();
+            editor.putInt(Tags.EVENT_ID, eventID);
+            editor.commit();
         } else {
             throw new InvalidParameterException("Missing event data.");
         }
 
         new APICall(this).getEvent(eventID);
+        startService(new Intent(this, Accelerometer.class));
 
         screenLock = new ScreenLock();
         screenLock.manageService(this);
-
-        Intent intent = new Intent(this, Accelerometer.class);
-        intent.putExtra(Intents.EVENTID, eventID);
-        startService(intent);
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
+
+        SharedPreferences.Editor editor = getSharedPreferences(Tags.SHARED_PREFFERENCES, MODE_MULTI_PROCESS).edit();
+        editor.putInt(Tags.EVENT_ID, -1);
+        editor.commit();
+
         screenLock.stopService();
         stopService(new Intent(Main.this, Accelerometer.class));
     }
